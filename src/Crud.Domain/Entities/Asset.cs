@@ -7,5 +7,5 @@ public class Asset : BaseEntity
 {
     public string Name { get; set; } = "";
     public string Ticker { get; set; } = "";
-    public AssetClass AssetClass { get; set; }
+    public AssetClass Class { get; set; }
 }
