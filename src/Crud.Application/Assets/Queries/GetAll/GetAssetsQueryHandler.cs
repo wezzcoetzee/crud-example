@@ -3,9 +3,7 @@ using Crud.Domain.Entities;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Crud.Application.Assets.Queries;
-
-public record GetAssetsQuery() : IRequest<List<Asset>>;
+namespace Crud.Application.Assets.Queries.GetAll;
 
 public class GetAssetsQueryHandler(IApplicationDbContext context) : IRequestHandler<GetAssetsQuery, List<Asset>>
 {

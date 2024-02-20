@@ -9,7 +9,7 @@ public class AssetUpdatedEventHandler(ILogger<AssetUpdatedEventHandler> logger)
 {
     public Task Handle(AssetUpdatedEvent notification, CancellationToken cancellationToken)
     {
-        logger.LogInformation("Domain Event: {DomainEvent}", notification.GetType().Name);
+        logger.LogInformation("Asset successfully updated: {AssetId}", notification.Asset.Id);
 
         return Task.CompletedTask;
     }

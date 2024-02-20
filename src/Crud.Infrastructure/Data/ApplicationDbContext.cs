@@ -7,7 +7,7 @@ namespace Crud.Infrastructure.Data;
 
 public class ApplicationDbContext(DbContextOptions options) : DbContext(options), IApplicationDbContext
 {
-    public DbSet<Asset?> Assets => Set<Asset>();
+    public DbSet<Asset> Assets => Set<Asset>();
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

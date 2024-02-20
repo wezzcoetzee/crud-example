@@ -1,6 +1,11 @@
 using Crud.Api.Infrastructure;
 using Crud.Application.Assets.Commands;
+using Crud.Application.Assets.Commands.Create;
+using Crud.Application.Assets.Commands.Delete;
+using Crud.Application.Assets.Commands.Update;
 using Crud.Application.Assets.Queries;
+using Crud.Application.Assets.Queries.Get;
+using Crud.Application.Assets.Queries.GetAll;
 using Crud.Domain.Entities;
 using MediatR;
 

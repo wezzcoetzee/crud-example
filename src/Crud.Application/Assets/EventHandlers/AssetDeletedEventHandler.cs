@@ -9,7 +9,7 @@ public class AssetDeletedEventHandler(ILogger<AssetDeletedEventHandler> logger)
 {
     public Task Handle(AssetDeletedEvent notification, CancellationToken cancellationToken)
     {
-        logger.LogInformation("Domain Event: {DomainEvent}", notification.GetType().Name);
+        logger.LogInformation("Asset successfully deleted: {AssetId}", notification.Asset.Id);
 
         return Task.CompletedTask;
     }

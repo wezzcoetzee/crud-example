@@ -1,13 +1,9 @@
 using Crud.Application.Common.Interfaces;
 using Crud.Domain.Entities;
-using Crud.Domain.Enums;
 using Crud.Domain.Events;
-using FluentValidation;
 using MediatR;
 
-namespace Crud.Application.Assets.Commands;
-
-public record CreateAssetCommand(string Name, string Ticker, AssetClass Class) : IRequest<Guid>;
+namespace Crud.Application.Assets.Commands.Create;
 
 public class CreateAssetCommandHandler(IApplicationDbContext context) : IRequestHandler<CreateAssetCommand, Guid>
 {
@@ -27,22 +23,5 @@ public class CreateAssetCommandHandler(IApplicationDbContext context) : IRequest
         await context.SaveChangesAsync(cancellationToken);
 
         return entity.Id;
-    }
-}
-
-public class CreateAssetCommandValidator : AbstractValidator<CreateAssetCommand>
-{
-    public CreateAssetCommandValidator()
-    {
-        RuleFor(x => x.Name)
-            .NotEmpty().WithMessage("Name is required.");
-
-        RuleFor(x => x.Ticker)
-            .NotEmpty().WithMessage("Ticker is required.");
-
-        // TODO Check is not Unknown
-        RuleFor(x => x.Class)
-            .IsInEnum()
-            .NotEmpty().WithMessage("Class is required.");
     }
 }

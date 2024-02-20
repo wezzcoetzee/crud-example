@@ -1,12 +1,9 @@
 using Ardalis.GuardClauses;
 using Crud.Application.Common.Interfaces;
 using Crud.Domain.Events;
-using FluentValidation;
 using MediatR;
 
-namespace Crud.Application.Assets.Commands;
-
-public record DeleteAssetCommand(Guid Id) : IRequest;
+namespace Crud.Application.Assets.Commands.Delete;
 
 public class DeleteAssetCommandHandler(IApplicationDbContext context) : IRequestHandler<DeleteAssetCommand>
 {
@@ -22,14 +19,5 @@ public class DeleteAssetCommandHandler(IApplicationDbContext context) : IRequest
         entity.AddDomainEvent(new AssetDeletedEvent(entity));
 
         await context.SaveChangesAsync(cancellationToken);
-    }
-}
-
-public class DeleteAssetCommandValidator : AbstractValidator<DeleteAssetCommand>
-{
-    public DeleteAssetCommandValidator()
-    {
-        RuleFor(x => x.Id)
-            .NotEmpty().WithMessage("Id is required.");
     }
 }

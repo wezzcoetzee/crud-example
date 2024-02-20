@@ -21,3 +21,8 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "Crud.Api.dll"]
+
+
+
+
+#docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=passwordinappsettings" -p 1433:1433 --name crud -d mcr.microsoft.com/mssql/server

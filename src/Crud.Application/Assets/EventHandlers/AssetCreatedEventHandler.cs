@@ -9,7 +9,7 @@ public class AssetCreatedEventHandler(ILogger<AssetCreatedEventHandler> logger)
 {
     public Task Handle(AssetCreatedEvent notification, CancellationToken cancellationToken)
     {
-        logger.LogInformation("Domain Event: {DomainEvent}", notification.GetType().Name);
+        logger.LogInformation("Asset successfully created: {AssetId}", notification.Asset.Id);
 
         return Task.CompletedTask;
     }
