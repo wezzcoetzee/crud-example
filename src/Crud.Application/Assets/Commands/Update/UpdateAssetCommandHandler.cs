@@ -5,7 +5,7 @@ using MediatR;
 
 namespace Crud.Application.Assets.Commands.Update;
 
-public class UpdateAssetCommandHandler(IApplicationDbContext context) : IRequestHandler<UpdateAssetCommand>
+public class UpdateAssetCommandHandler(IApplicationDbContext context, IDateTimeProvider dateTimeProvider) : IRequestHandler<UpdateAssetCommand>
 {
     public async Task Handle(UpdateAssetCommand request, CancellationToken cancellationToken)
     {
@@ -18,7 +18,7 @@ public class UpdateAssetCommandHandler(IApplicationDbContext context) : IRequest
 
         entity.Name = request.Name;
         entity.Ticker = request.Ticker;
-        entity.Class = request.Class;
+        entity.UpdatedAt = dateTimeProvider.UtcNow;
 
         await context.SaveChangesAsync(cancellationToken);
     }

@@ -1,4 +1,3 @@
-using Crud.Domain.Enums;
 using FluentValidation;
 
 namespace Crud.Application.Assets.Commands.Update;
@@ -15,9 +14,5 @@ public class UpdateAssetCommandValidator : AbstractValidator<UpdateAssetCommand>
 
         RuleFor(x => x.Ticker)
             .NotEmpty().WithMessage("Ticker is required.");
-
-        RuleFor(x => x.Class)
-            .Equal(AssetClass.Undefined).WithMessage("Class cannot be Undefined.")
-            .NotEmpty().WithMessage("Class is required.");
     }
 }

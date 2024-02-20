@@ -1,5 +1,7 @@
 ﻿using System.Reflection;
 using Crud.Application.Common.Behaviours;
+using Crud.Application.Common.Interfaces;
+using Crud.Application.Common.Providers;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Configuration;
@@ -15,6 +17,7 @@ public static class ApplicationServiceCollection
         var assembly = Assembly.GetExecutingAssembly();
 
         return services.AddValidatorsFromAssembly(assembly)
+            .AddSingleton<IDateTimeProvider, DateTimeProvider>()
             .AddMediatR(cfg =>
             {
                 cfg.RegisterServicesFromAssembly(assembly);

@@ -5,15 +5,16 @@ using MediatR;
 
 namespace Crud.Application.Assets.Commands.Create;
 
-public class CreateAssetCommandHandler(IApplicationDbContext context) : IRequestHandler<CreateAssetCommand, Guid>
+public class CreateAssetCommandHandler(IApplicationDbContext context, IDateTimeProvider dateTimeProvider) : IRequestHandler<CreateAssetCommand, Guid>
 {
     public async Task<Guid> Handle(CreateAssetCommand request, CancellationToken cancellationToken)
     {
         var entity = new Asset
         {
-            Class = request.Class,
             Name = request.Name,
-            Ticker = request.Ticker
+            Ticker = request.Ticker,
+            CreatedAt = dateTimeProvider.UtcNow,
+            UpdatedAt = dateTimeProvider.UtcNow
         };
         
         entity.AddDomainEvent(new AssetCreatedEvent(entity));

@@ -6,8 +6,10 @@ using Crud.Application.Assets.Commands.Update;
 using Crud.Application.Assets.Queries;
 using Crud.Application.Assets.Queries.Get;
 using Crud.Application.Assets.Queries.GetAll;
+using Crud.Domain.Dtos;
 using Crud.Domain.Entities;
 using MediatR;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Crud.Api.Endpoints;
 
@@ -33,15 +35,15 @@ public class AssetEndpoints : EndpointGroupBase
         return await sender.Send(new GetAssetQuery(id));
     }
 
-    private static async Task<Guid> CreateAsset(ISender sender, CreateAssetCommand command)
+    private static async Task<Guid> CreateAsset(ISender sender, [FromBody]CreateAssetDto request)
     {
-        return await sender.Send(command);
+        return await sender.Send(new CreateAssetCommand(request.Name, request.Ticker));
     }
 
-    private static async Task<IResult> UpdateAsset(ISender sender, Guid id, UpdateAssetCommand command)
+    private static async Task<IResult> UpdateAsset(ISender sender, Guid id, UpdateAssetDto request)
     {
-        if (id != command.Id) return Results.BadRequest();
-        await sender.Send(command);
+        if (id != request.Id) return Results.BadRequest();
+        await sender.Send(new UpdateAssetCommand(request.Id, request.Name, request.Ticker));
         return Results.NoContent();
     }
 

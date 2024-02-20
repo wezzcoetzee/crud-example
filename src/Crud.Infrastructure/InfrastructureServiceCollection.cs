@@ -22,7 +22,7 @@ public static class InfrastructureServiceCollection
             .AddDbContext<ApplicationDbContext>((sp, options) =>
             {
                 options.AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
-                options.UseSqlServer(connectionString);
+                options.UseNpgsql(connectionString);
             })
             .AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<ApplicationDbContext>());
     }
