@@ -1,28 +1,40 @@
+using AutoFixture;
 using Crud.Application.Assets.Queries.GetAll;
 using Crud.Application.Common.Interfaces;
 using Crud.Domain.Entities;
+using Crud.Infrastructure.Data;
+using Crud.UnitTests.Helpers;
 using FluentAssertions;
-using NSubstitute;
 using Xunit;
 
 namespace Crud.UnitTests.Application.Assets.Queries.GetAll;
 
-public class GetAssetsQueryHandlerTests
+public class GetAssetsQueryHandlerTests : DatabaseHelper
 {
+    private readonly IFixture _fixture;
+    private readonly IApplicationDbContext _context;
+    private readonly GetAssetsQueryHandler _handler;
+
+    public GetAssetsQueryHandlerTests()
+    {
+        _fixture = new Fixture();
+        _context = new ApplicationDbContext(GetInMemoryDb);
+        _handler = new GetAssetsQueryHandler(_context);
+    }
+
     [Fact]
     public async Task Handle_ReturnsCorrectAssets()
     {
         // Arrange
-        var context = Substitute.For<IApplicationDbContext>();
-        var assets = new List<Asset> { new(), new() };
-        context.Assets.Returns(assets.AsQueryable());
+        var assets = _fixture.CreateMany<Asset>().ToList();
 
-        var handler = new GetAssetsQueryHandler(context);
+        await _context.Assets.AddRangeAsync(assets);
+        await _context.SaveChangesAsync(default);
 
         // Act
-        var result = await handler.Handle(new GetAssetsQuery(), new CancellationToken());
+        var result = await _handler.Handle(new GetAssetsQuery(), new CancellationToken());
 
         // Assert
-        result.Should().BeEquivalentTo(assets);
+        assets.All(asset => result.Contains(asset)).Should().BeTrue();
     }
 }

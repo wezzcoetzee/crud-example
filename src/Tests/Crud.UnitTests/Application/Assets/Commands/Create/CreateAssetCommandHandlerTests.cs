@@ -23,7 +23,7 @@ public class CreateAssetCommandHandlerTests
     public async Task Handle_ShouldCreateNewAsset()
     {
         // Arrange
-        var command = new CreateAssetCommand("Test Asset", "TST");
+        var command = new CreateAssetCommand("Bitcoin", "BTC");
         var utcNow = DateTime.UtcNow;
         _dateTimeProvider.UtcNow.Returns(utcNow);
 

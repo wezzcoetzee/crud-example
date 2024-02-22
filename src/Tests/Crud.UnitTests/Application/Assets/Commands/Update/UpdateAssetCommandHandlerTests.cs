@@ -24,8 +24,8 @@ public class UpdateAssetCommandHandlerTests
     public async Task Handle_ShouldUpdateAssetAndSaveChanges()
     {
         // Arrange
-        var asset = new Asset { Id = Guid.NewGuid(), Name = "Old Name", Ticker = "Old Ticker" };
-        var command = new UpdateAssetCommand(asset.Id, "New Name", "New Ticker");
+        var asset = new Asset { Id = Guid.NewGuid(), Name = "Bitcoin", Ticker = "BTC" };
+        var command = new UpdateAssetCommand(asset.Id, "Ethereum", "ETH");
         _context.Assets.FindAsync(Arg.Any<object?[]?>(), Arg.Any<CancellationToken>()).Returns(asset);
         _dateTimeProvider.UtcNow.Returns(DateTime.UtcNow);
 
