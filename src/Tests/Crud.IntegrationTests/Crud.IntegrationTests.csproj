@@ -6,4 +6,23 @@
         <Nullable>enable</Nullable>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\..\Crud.Api\Crud.Api.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="AutoFixture" Version="4.18.1" />
+      <PackageReference Include="FluentAssertions" Version="6.12.0" />
+      <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.2" />
+      <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
+      <PackageReference Include="NSubstitute" Version="5.1.0" />
+      <PackageReference Include="Testcontainers.PostgreSql" Version="3.7.0" />
+      <PackageReference Include="xunit.extensibility.core" Version="2.7.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Application\Assets\Commands\" />
+      <Folder Include="Application\Assets\Queries\" />
+    </ItemGroup>
+
 </Project>
